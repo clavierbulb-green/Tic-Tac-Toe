@@ -10,10 +10,14 @@ const gameBoard = (() => {
       row.length = 0;
     })
   }
+  const isFull = () => {
+    return board.flat().length === 9;
+  }
   return {
     board,
     mark,
     clear,
+    isFull,
   }
 })();
 module.exports = gameBoard;
