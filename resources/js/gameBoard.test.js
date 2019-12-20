@@ -5,9 +5,12 @@ beforeEach(() => {
 });
 
 test('marking a square updates board', () => {
-  let row = 1;
-  let column = 1;
-  let marker = 'X';
-  gameBoard.mark(row, column, marker);
-  expect(gameBoard.board[row][column]).toBe('X');
+  gameBoard.mark(1, 1, 'X');
+  expect(gameBoard.board[1][1]).toBe('X');
 });
+
+test('attempt to mark already marked square should not update board.', () => {
+  gameBoard.mark(1, 1, 'X');
+  gameBoard.mark(1, 1, 'O');
+  expect(gameBoard.board[1][1]).toBe('X');
+})
