@@ -4,7 +4,8 @@
   "description": "---",
   "private": true,
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,8 @@
   },
   "homepage": "https://github.com/clavierbulb-green/Tic-Tac-Toe#readme",
   "devDependencies": {
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
   }
 }
