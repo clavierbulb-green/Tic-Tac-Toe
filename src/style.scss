@@ -10,6 +10,7 @@
   padding: 0;
 }
 
+
 /* || container div for the game board */
 .app {
   display: flex;
@@ -93,6 +94,7 @@
 
   opacity: 0.8;
   transition: background-color 250ms ease-in-out;
+  line-height: 1;
 }
 
 #board .square:hover {
