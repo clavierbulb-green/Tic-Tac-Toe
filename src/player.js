@@ -1,8 +1,8 @@
 const Player = (name, marker) => {
   return {
     name,
-    marker,
-  }
-}
+    marker
+  };
+};
 
 module.exports = Player;

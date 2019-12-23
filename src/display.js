@@ -1,8 +1,9 @@
 const display = (() => {
-  const DOMBoard = document.getElementById("board");
+  const squares = [];
 
   const init = () => {
     /* Populate DOMBoard with empty squares. */
+    const DOMBoard = document.getElementById("board");
 
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
@@ -11,33 +12,31 @@ const display = (() => {
         square.dataset.row = row;
         square.dataset.col = col;
 
+        squares.push(square);
+
         DOMBoard.appendChild(square);
       }
     }
-  }
+  };
 
   const clear = () => {
-    for (let i = 0; i < DOMBoard.children.length; i++) {
-      let square = DOMBoard.children[i];
-      square.textContent = "";
-    }
-  }
+    squares.forEach(square => (square.textContent = ""));
+  };
 
-  const render = (board) => {
+  const render = board => {
     clear();
-    for (let i = 0; i < DOMBoard.children.length; i++) {
-      let square = DOMBoard.children[i];
+    squares.forEach(square => {
       let row = square.dataset.row;
       let col = square.dataset.col;
       let marker = board[row][col];
       square.textContent = marker;
-    }
-  }
+    });
+  };
 
   return {
     init,
-    render,
-  }
+    render
+  };
 })();
 
 module.exports = display;
