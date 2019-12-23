@@ -90,10 +90,16 @@ test('3 squares in a diagonal with the same mark is a win(2)', () => {
   expect(gameBoard.isGameOver()).toBeTruthy();
 });
 
-test('a non-winning combination is not a win', () => {
+test('a non-winning combination is not a win(1)', () => {
   gameBoard.mark(0, 1, 'X');
   gameBoard.mark(1, 1, 'X');
   gameBoard.mark(2, 2, 'X');
   expect(gameBoard.isGameOver()).toBeFalsy();
 });
-
+test('a non-winning combination is not a win(2)', () => {
+  gameBoard.mark(0, 0, 'X');
+  expect(gameBoard.isGameOver()).toBeFalsy();
+});
+test('an empty board is not a winning combination', ()=> {
+  expect(gameBoard.isGameOver()).toBeFalsy();
+});
