@@ -7,6 +7,9 @@ const game = (() => {
   // to the DOM
 
   const run = () => {
+
+    display.init();
+
     //dummy players
     const player1 = Player('foo1', 'X');
     const player2 = Player('foo2', 'O');
@@ -24,7 +27,8 @@ const game = (() => {
       gameBoard.mark(row, col, currentPlayer.marker);
       alert(`${currentPlayer.name} marks square[${row},${col}]`);
 
-      console.log(gameBoard.board);
+      //console.log(gameBoard.board);
+      display.render(gameBoard.board);
 
       if (gameBoard.isGameOver()) {
         break;
