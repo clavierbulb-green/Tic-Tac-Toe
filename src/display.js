@@ -1,4 +1,5 @@
 const gameBoard = require("./gameBoard");
+const logic = require("./logic");
 
 const display = (() => {
   const squares = [];
@@ -19,6 +20,9 @@ const display = (() => {
         DOMBoard.appendChild(square);
       }
     }
+    const marker1 = prompt("Enter a marker for PLAYER1:");
+    const marker2 = prompt("Enter a marker for PLAYER2:");
+    setMarkers(marker1, marker2);
   };
 
   const clear = () => {
@@ -42,7 +46,7 @@ const display = (() => {
       alert("This game is a DRAW!");
       clear();
       gameBoard.clear();
-    } else if (gameBoard.isGameOver()) {
+    } else if (logic.gameOver(gameBoard.board)) {
       alert(`${marker} is the WINNER!`);
       clear();
       gameBoard.clear();
