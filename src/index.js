@@ -1,6 +1,6 @@
-import './style.scss';
+import "./style.scss";
 
-const game = require('./game');
+const game = require("./game");
+const display = require("./display");
 
-game.run()
-
+game.setup();

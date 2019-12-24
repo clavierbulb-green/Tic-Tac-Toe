@@ -1,3 +1,5 @@
+const gameBoard = require("./gameBoard");
+
 const display = (() => {
   const squares = [];
 
@@ -33,9 +35,36 @@ const display = (() => {
     });
   };
 
+  const markSquare = (square, marker) => {
+    gameBoard.mark(square.dataset.row, square.dataset.col, marker);
+    render(gameBoard.board);
+    if (gameBoard.isFull()) {
+      alert("This game is a DRAW!");
+      clear();
+      gameBoard.clear();
+    } else if (gameBoard.isGameOver()) {
+      alert(`${marker} is the WINNER!`);
+      clear();
+      gameBoard.clear();
+    }
+  };
+
+  const setMarkers = (marker1, marker2) => {
+    const markers = [marker1, marker2];
+    let currentMarker = markers[0];
+    squares.forEach(square => {
+      square.addEventListener("click", () => {
+        if (!square.textContent) {
+          markSquare(square, currentMarker);
+          currentMarker = markers[Number(!markers.indexOf(currentMarker))];
+        }
+      });
+    });
+  };
+
   return {
     init,
-    render
+    setMarkers
   };
 })();
 
