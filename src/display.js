@@ -6,6 +6,7 @@ const display = (() => {
 
   const init = () => {
     /* Populate DOMBoard with empty squares. */
+    const app = document.querySelector(".app");
     const DOMBoard = document.getElementById("board");
 
     for (let row = 0; row < 3; row++) {
@@ -20,9 +21,7 @@ const display = (() => {
         DOMBoard.appendChild(square);
       }
     }
-    const marker1 = prompt("Enter a marker for PLAYER1:");
-    const marker2 = prompt("Enter a marker for PLAYER2:");
-    setMarkers(marker1, marker2);
+    setMarkers();
   };
 
   const clear = () => {
@@ -43,32 +42,60 @@ const display = (() => {
     gameBoard.mark(square.dataset.row, square.dataset.col, marker);
     render(gameBoard.board);
     if (gameBoard.isFull()) {
-      alert("This game is a DRAW!");
       clear();
       gameBoard.clear();
     } else if (logic.gameOver(gameBoard.board)) {
-      alert(`${marker} is the WINNER!`);
+      let root = document.documentElement;
+      const win_color = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--win_color");
+      const border_color = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--border_color");
+      if (marker == "X") {
+        root.style.setProperty("--X_win_border", win_color);
+        root.style.setProperty("--O_win_border", border_color);
+      } else {
+        root.style.setProperty("--O_win_border", win_color);
+        root.style.setProperty("--X_win_border", border_color);
+      }
       clear();
       gameBoard.clear();
     }
   };
 
-  const setMarkers = (marker1, marker2) => {
-    const markers = [marker1, marker2];
-    let currentMarker = markers[0];
+  const setMarkers = () => {
+    const markers = ["X", "O"];
+    // let starting marker be random
+    let currentMarker = markers[Math.floor(Math.random() * 2)];
+
+    let root = document.documentElement;
+    if (currentMarker === "X") {
+      root.style.setProperty("--X_opacity", 1);
+    } else {
+      root.style.setProperty("--O_opacity", 1);
+    }
+
     squares.forEach(square => {
       square.addEventListener("click", () => {
         if (!square.textContent) {
           markSquare(square, currentMarker);
+          // change to other player
           currentMarker = markers[Number(!markers.indexOf(currentMarker))];
+          if (currentMarker == "X") {
+            root.style.setProperty("--X_opacity", 1);
+            root.style.setProperty("--O_opacity", 0.4);
+          } else {
+            root.style.setProperty("--O_opacity", 1);
+            root.style.setProperty("--X_opacity", 0.4);
+          }
         }
       });
     });
   };
 
   return {
-    init,
-    setMarkers
+    init
   };
 })();
 

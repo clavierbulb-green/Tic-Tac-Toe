@@ -2,6 +2,13 @@
   --board_side_length: 84vmin;
   --backdrop_offset_long: 35vmin;
   --backdrop_offset_short: 6vmin;
+  --border_color: rgba(210, 220, 250, 0.2);
+  --win_color: #6DAF2B;
+  --win_border_width: 30px;
+  --X_opacity: 0.4;
+  --X_win_border: var(--border_color);
+  --O_opacity: 0.4;
+  --O_win_border: var(--border_color);
 }
 
 * {
@@ -21,13 +28,22 @@
   overflow: hidden;
 }
 
+.msgBoard {
+  position: fixed;
+  color: rgba(7, 120, 100, 0.8);
+  background-color: rgba(255, 255, 255, 0.4);
+  font-size: 1.8rem;
+  left: 0;
+  top: 0;
+}
+
 
 /* || The game board */
 #board {
   position: relative;
 
   width: var(--board_side_length);
-  height: var(--board_side_length);;
+  height: var(--board_side_length);
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -44,37 +60,56 @@
   width: var(--board_side_length);
   height: var(--board_side_length);
 
-  content: "";
+  color: rgba(255, 255, 255, 0.7);
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--board_side_length));
+
+  transition: opacity 300ms ease-in-out;
 }
 
 #board::before {
   z-index: -10;
   background-color: rgba(120, 144, 156, 0.7);
+  content: 'X';
+  opacity: var(--X_opacity);
 }
 
 #board::after {
   z-index: -5;
   background-color: rgba(96, 125, 184, 0.5);
+  content: 'O';
+  opacity: var(--O_opacity);
 }
 
 @media (orientation: portrait) {
   #board::before {
       bottom: var(--backdrop_offset_long);
       left: var(--backdrop_offset_short);
+      border-top: var(--win_border_width) solid var(--border_color);
+      border-top-color: var(--X_win_border);
   }
   #board::after {
       top: var(--backdrop_offset_long);
       right: var(--backdrop_offset_short);
+      border-bottom: var(--win_border_width) solid var(--border_color);
+      border-bottom-color: var(--O_win_border);
   }
 }
 @media (orientation: landscape) {
   #board::before {
       bottom: var(--backdrop_offset_short);
       right: var(--backdrop_offset_long);
+      border-left: var(--win_border_width) solid var(--border_color);
+      border-left-color: var(--X_win_border);
   }
   #board::after {
       top: var(--backdrop_offset_short);
       left: var(--backdrop_offset_long);
+      border-right: var(--win_border_width) solid var(--border_color);
+      border-right-color: var(--O_win_border);
   }
 }
 
@@ -85,16 +120,16 @@
   justify-content: center;
   align-items: center;
 
-  font-size: 22vmin;
+  font-size: 23vmin;
   font-family: 'Source Code Pro', monospace;
   line-height: 1;
   text-align: center;
 
-  color: rgba(208, 38, 0, 0.9);
+  color: rgba(208, 50, 0, 0.9);
   background-color: rgba(254, 250, 250, 0.7);
   box-shadow: 0.5vmin 0.5vmin 1vmin rgba(38, 50, 56, 0.6);
 
-  opacity: 0.8;
+  opacity: 0.9;
   transition: background-color 250ms ease-in-out;
 
 
@@ -113,7 +148,7 @@
 
   font-size: 10vmin;
 
-  color: rgba(26, 52, 65, 0.6);
+  color: rgba(26, 52, 65, 0.4);
 
   content: "";
 }
